@@ -1,0 +1,20 @@
+# Rust build artifacts
+/target
+
+# Backup files
+**/*.rs.bk
+
+# Cargo lock file (optional)
+/Cargo.lock
+
+# VSCode
+.vscode/
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Other system files
+*.swp
+*.swo
