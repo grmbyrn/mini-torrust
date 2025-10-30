@@ -16,7 +16,7 @@ fn main() {
     // Create and add a sample torrent to the index.
     let torrent = Torrent {
         name: "Example Torrent".to_string(),          // Torrent name
-        info_hash: "123abc".to_string(),              // Unique identifier for the torrent
+        info_hash: "abc123".to_string(),              // Unique identifier for the torrent
         file_size: 1024 * 1024 * 700,                 // File size in bytes (700 MB)
         added_at: "2025-10-29T12:00:00Z".to_string(), // ISO timestamp
     };
@@ -25,26 +25,32 @@ fn main() {
     // Create two peers and announce them to the tracker for the given torrent.
     let peer1 = Peer {
         peer_id: "peer1".to_string(),    // Unique peer ID
-        info_hash: "123abc".to_string(), // Torrent info_hash this peer is associated with
+        info_hash: "abc123".to_string(), // Torrent info_hash this peer is associated with
         status: PeerStatus::Seeding,     // Peer is seeding
     };
     let peer2 = Peer {
         peer_id: "peer2".to_string(),    // Unique peer ID
-        info_hash: "123abc".to_string(), // Torrent info_hash this peer is associated with
+        info_hash: "abc123".to_string(), // Torrent info_hash this peer is associated with
         status: PeerStatus::Leeching,    // Peer is leeching
     };
     tracker.announce_peer(peer1); // Announce peer1
     tracker.announce_peer(peer2); // Announce peer2
 
     // List all torrents in the index and print them.
-    print!("Torrents:");
+    print!("Torrents:\n");
     for t in index.list_torrents() {
-        print!(" {:?}", t); // Print each torrent struct
+        println!("  Name: {}", t.name); // Print each torrent struct
+        println!("  Info Hash: {}", t.info_hash);
+        println!("  Size: {} bytes", t.file_size);
+        println!("  Added At: {}", t.added_at);
+        println!();
     }
 
     // List all peers for the torrent with info_hash "abc123" and print them.
     println!("\nPeers for abc123:");
     for p in tracker.list_peers("abc123") {
-        print!("{:?}", p); // Print each peer struct
+        println!("  Peer ID: {}", p.peer_id); // Print each peer struct
+        println!("  Status: {:?}", p.status);
+        println!();
     }
 }

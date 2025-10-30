@@ -1,5 +1,5 @@
-// Well howdy, this here is the data corral for savin' and loadin' torrents and peers.
-// We use serde to wrangle our structs into JSON and back, so nothin' gets lost on the trail.
+// This is the database for saving and loading torrents and peers.
+// We use serde to wrangle our structs into JSON and back, so nothing gets lost.
 
 use crate::index::Index;
 use crate::models::{Peer, Torrent};
@@ -8,8 +8,8 @@ use serde::{Deserialize, Serialize};
 use std::fs::{File, OpenOptions};
 use std::io::{BufReader, BufWriter, Error as IoError};
 
-// First, we gotta make sure our structs can be serialized.
-// Add serde derives to Torrent and Peer in models.rs if they ain't there yet.
+// First, we make sure our structs can be serialized.
+// Add serde derives to Torrent and Peer in models.rs if they aren't there yet.
 
 // Save the whole torrent herd to a JSON file.
 pub fn save_index(index: &Index, path: &str) -> Result<(), IoError> {
@@ -19,13 +19,13 @@ pub fn save_index(index: &Index, path: &str) -> Result<(), IoError> {
         .truncate(true)
         .open(path)?;
     let writer = BufWriter::new(file);
-    // We serialize just the values, partner.
+    // We serialize just the values.
     let torrents: Vec<&Torrent> = index.list_torrents();
     serde_json::to_writer(writer, &torrents)?;
     Ok(())
 }
 
-// Load the herd back from the JSON file.
+// Load the index back from the JSON file.
 pub fn load_index(path: &str) -> Result<Index, IoError> {
     let file = File::open(path)?;
     let reader = BufReader::new(file);
@@ -68,7 +68,7 @@ pub fn load_tracker(path: &str) -> Result<Tracker, IoError> {
     Ok(tracker)
 }
 
-// Tests for our data wranglin’
+// Tests for our data
 #[cfg(test)]
 mod tests {
     use super::*;

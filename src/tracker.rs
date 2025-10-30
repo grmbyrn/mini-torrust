@@ -75,4 +75,3 @@ mod tests {
         assert!(peers.is_empty());
     }
 }
-// ...existing code...

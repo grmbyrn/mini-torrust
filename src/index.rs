@@ -99,4 +99,3 @@ mod tests {
         assert_eq!(results[0].name, "Fedora");
     }
 }
-// ...existing code...

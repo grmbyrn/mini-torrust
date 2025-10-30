@@ -1,6 +1,6 @@
 // Created models.rs: This file holds the core data structures (Torrent, Peer, PeerStatus) that represent torrents and peers in your application. Keeping them in a separate module makes your code organized and reusable.
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 pub struct Torrent {
     pub name: String,
     pub info_hash: String,
@@ -8,13 +8,15 @@ pub struct Torrent {
     pub added_at: String,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+// This enum tells us if a peer is seeding or leeching.
+// We add serde derives so it can be saved and loaded with the rest of the herd.
+#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 pub enum PeerStatus {
     Seeding,
     Leeching,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 pub struct Peer {
     pub peer_id: String,
     pub info_hash: String,
